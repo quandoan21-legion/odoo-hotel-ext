@@ -43,7 +43,7 @@ addons/
 - Automatic creation of order history records upon room order creation.
 
 ## Installation
-1. Ensure that the base `hotel` module is installed.
+1. Ensure that the base [hotel](https://github.com/quandoan21-legion/hotel_management_odoo) module is installed.
 2. Copy the `hotel-ext` module to your Odoo add-ons directory.
 3. Update the module list by running the following command:
    ```bash
