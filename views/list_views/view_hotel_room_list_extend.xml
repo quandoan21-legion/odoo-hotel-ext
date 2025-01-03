@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_hotel_room_list_extend" model="ir.ui.view">
+            <field name="name">hotel.room.list.extend</field>
+            <field name="model">hotels.room</field>
+            <field name="inherit_id" ref="hotel.view_hotel_room_list"/>
+            <field name="arch" type="xml">
+                <!-- Add a new field after the room description -->
+                <xpath expr="//field[@name='room_price']" position="after">
+                    <field name="room_size"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
