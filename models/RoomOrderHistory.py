@@ -4,8 +4,9 @@ class RoomOrderHistory(models.Model):
     _name = 'hotels.room.order.history'
     _description = 'Room Order History'
 
-    room_id = fields.Many2one('hotels.room', string='Room')
-    order_id = fields.Many2one('hotels.room.order', string='Room Order', required=True)
-    customer_name = fields.Char(related='order_id.customer_name', string='Customer Name', store=True)
-    check_in_date = fields.Date(related='order_id.check_in_date', string='Check In Date', store=True)
-    check_out_date = fields.Date(related='order_id.check_out_date', string='Check Out Date', store=True)
+    hotel_id = fields.Many2one('hotels.hotel', string="Hotel", ondelete='cascade')
+    room_id = fields.Many2one('hotels.room', string="Room")
+    customer_name = fields.Char(string="Customer Name")
+    check_in_date = fields.Date(string="Check-In Date")
+    check_out_date = fields.Date(string="Check-Out Date")
+    order_id = fields.Many2one('hotels.room.order', string="Order")

@@ -1,33 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <record id="view_room_order_history_form" model="ir.ui.view">
-            <field name="name">hotels.room.order.history.form</field>
-            <field name="model">hotels.room.order.history</field>
+        <!-- Extend the original hotel form view to add a new notebook page for Room Order History -->
+        <record id="hotel_form_view_extend" model="ir.ui.view">
+            <field name="name">hotel.form.extend</field>
+            <field name="model">hotels.hotel</field>
+            <field name="inherit_id" ref="hotel.hotel_form_view"/>
             <field name="arch" type="xml">
-                <form string="Room Order History">
-                    <sheet>
-                        <notebook>
-                            <!-- General Information Tab -->
-                            <page string="General Information">
-                                <group>
-                                    <field name="room_id"/>
-                                    <field name="order_id"/>
-                                </group>
-                            </page>
-
-                            <!-- Order Details Tab -->
-                            <page string="Order Details">
-                                <group>
+                <!-- Add a new notebook page after the 'rooms' field -->
+                <xpath expr="//field[@name='rooms']" position="after">
+                    <notebook>
+                        <page string="Room Order History">
+                            <field name="room_order_history_ids">
+                                <list>
                                     <field name="customer_name"/>
+                                    <field name="room_id"/>
                                     <field name="check_in_date"/>
                                     <field name="check_out_date"/>
-                                </group>
-                            </page>
-                        </notebook>
-                    </sheet>
-                </form>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </xpath>
             </field>
         </record>
-
     </data>
 </odoo>
