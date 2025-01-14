@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_sale_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.order.line.extend</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <!-- Add x_discount field after tax_id field in the order_line form -->
+                <xpath expr="//field[@name='order_line']/list//field[@name='tax_id']" position="after">
+                    <field name="x_discount"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
