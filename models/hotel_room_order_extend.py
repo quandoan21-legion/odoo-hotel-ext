@@ -1,8 +1,10 @@
-from odoo import models, api
+from odoo import models, api, fields
 
 
 class RoomOrderExtend(models.Model):
     _inherit = 'hotels.room.order'
+
+    order_sale_quotation = fields.Many2one('sale.order', string="Room Booking Quotation")
 
     @api.model
     def create(self, vals):
@@ -17,7 +19,7 @@ class RoomOrderExtend(models.Model):
                 'price_unit': record.room_id.room_price,  # Price of the room
             })],
         }
-        self.env['sale.order'].create(quotation_vals)
+        record.order_sale_quotation = self.env['sale.order'].create(quotation_vals)
         return record
 
     def write(self, vals):
@@ -26,8 +28,7 @@ class RoomOrderExtend(models.Model):
 
         # Loop through the records being updated (if batch update)
         for record in self:
-            # Find the corresponding sale order based on some condition (e.g., partner_id, room_order_id)
-            sale_order = self.env['sale.order'].search([('partner_id', '=', 47)])  # You can change this search
+            sale_order = self.env['sale.order'].search([('id', '=', record.order_sale_quotation.id)])
 
             if sale_order:
                 # Get the product variant or fallback to product template

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Check if this menu item exists in the other file or is created dynamically -->
+    <menuitem id="menu_hotel_root" name="Hotel Management" sequence="1" />
+
+    <!-- Submenu for Hotel Service Products -->
+    <menuitem id="menu_hotel_service_product_list_root"
+              name="Hotel Service Products"
+              action="action_hotel_service_products_list_view"
+              parent="menu_hotel_root"
+              sequence="50"/>
+</odoo>

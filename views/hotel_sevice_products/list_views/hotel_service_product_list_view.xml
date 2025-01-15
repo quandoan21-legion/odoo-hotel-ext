@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Define the List View -->
+        <record id="hotel_service_products_list_view" model="ir.ui.view">
+            <field name="name">hotel.service.products.list</field>
+            <field name="model">hotels.service.products</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="name"/>
+                    <!-- Add more fields if necessary -->
+                </list>
+            </field>
+        </record>
+
+        <!-- Define the Action for the View -->
+        <record id="action_hotel_service_products_list_view" model="ir.actions.act_window">
+            <field name="name">Hotel Service Products</field>
+            <field name="res_model">hotels.service.products</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="hotel_service_products_list_view"/>
+            <field name="target">current</field>
+        </record>
+
+    </data>
+</odoo>
