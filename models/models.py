@@ -3,9 +3,9 @@
 # from odoo import models, fields, api
 
 
-# class hotel-ext(models.Model):
-#     _name = 'hotel-ext.hotel-ext'
-#     _description = 'hotel-ext.hotel-ext'
+# class hotel_ext(models.Model):
+#     _name = 'hotel_ext.hotel_ext'
+#     _description = 'hotel_ext.hotel_ext'
 
 #     name = fields.Char()
 #     value = fields.Integer()

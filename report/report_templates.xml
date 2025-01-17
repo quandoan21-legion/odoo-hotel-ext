@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="report_room_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="oe_structure"/>
+
+                        <!-- Header Section -->
+                        <div class="row">
+                            <div class="col-12 text-center">
+                                <h2>Room Booking Details</h2>
+                                <p>Order Status:
+                                    <span t-field="doc.order_status" class="badge badge-pill badge-info"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Customer and Booking Information -->
+                        <div class="row mt32 mb32">
+                            <div class="col-12">
+                                <p>
+                                    <strong>Guest Name:</strong>
+                                    <span t-field="doc.customer_name"/>
+                                </p>
+                                <p>
+                                    <strong>Check-in Date:</strong>
+                                    <span t-field="doc.check_in_date"/>
+                                </p>
+                                <p>
+                                    <strong>Check-out Date:</strong>
+                                    <span t-field="doc.check_out_date"/>
+                                </p>
+                                <p>
+                                    <strong>Room Price:</strong>
+                                    <span t-field="doc.room_price"
+                                          t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                </p>
+                                <p>
+                                    <strong>Total Stay (Days):</strong>
+                                    <t t-esc="(doc.check_out_date - doc.check_in_date).days"/>
+                                </p>
+                                <p>
+                                    <strong>Total Room Cost:</strong>
+                                    <t t-esc="(doc.check_out_date - doc.check_in_date).days * doc.room_price"
+                                       t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Room Details -->
+                        <div class="row mt32">
+                            <div class="col-12">
+                                <p>
+                                    <strong>Room Number:</strong>
+                                    <span t-field="doc.room_id.name"/>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Additional Services Section -->
+                        <t t-if="doc.order_service_product_ids">
+                            <h4>Additional Services</h4>
+                            <table class="table table-sm o_main_table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Service/Product</th>
+                                        <th class="text-right">Quantity</th>
+                                        <th class="text-right">Unit Price</th>
+                                        <th class="text-right">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.order_service_product_ids" t-as="line">
+                                        <td class="text-left">
+                                            <span t-field="line.product_id.name"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.quantity"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.price_unit"
+                                                  t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="line.subtotal"
+                                                  t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <!-- Total Calculation -->
+                                    <tr>
+                                        <td class="text-left" colspan="3">
+                                            <strong>Total Services:</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(line.subtotal for line in doc.order_service_product_ids)"
+                                                  t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left" colspan="3">
+                                            <strong>Total (Including Room):</strong>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-esc="sum(line.subtotal for line in doc.order_service_product_ids) + ((doc.check_out_date - doc.check_in_date).days * doc.room_price)"
+                                                  t-options='{"widget": "monetary", "display_currency": env.company.currency_id}'/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <!-- Quotation Reference -->
+                        <t t-if="doc.order_sale_quotation">
+                            <div class="row mt32">
+                                <div class="col-12">
+                                    <h4>Booking Reference</h4>
+                                    <p>Quotation Number:
+                                        <span t-field="doc.order_sale_quotation.name"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </t>
+
+                        <!-- Stay Duration and Terms -->
+                        <div class="row mt32">
+                            <div class="col-12">
+                                <h4>Stay Information</h4>
+                                <p>Duration of Stay:
+                                    <t t-esc="(doc.check_out_date - doc.check_in_date).days"/>
+                                    nights
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Footer Notes -->
+                        <div class="row mt32">
+                            <div class="col-12">
+                                <p class="text-muted">Thank you for choosing our hotel. We wish you a pleasant stay!</p>
+                            </div>
+                        </div>
+
+                        <div class="oe_structure"/>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "hotel-ext",
+    'name': "hotel_ext",
 
     'summary': "Short (1 phrase/line) summary of the module's purpose",
 
@@ -22,6 +22,9 @@ Long description of module's purpose
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
+        'report/report_templates.xml',
+        'report/report_views.xml',
+        'views/form_views/hotel_room_order_form_view_extend.xml',
         'views/form_views/sale_order_line_extend.xml',
         'security/ir.model.access.csv',
         'views/views.xml',
@@ -30,7 +33,6 @@ Long description of module's purpose
         'views/form_views/view_hotel_room_form_extend.xml',
         'views/list_views/view_hotel_room_list_extend.xml',
         'views/hotel_sevice_products/list_views/hotel_service_product_list_view.xml',
-        'views/form_views/hotel_room_order_form_view_extend.xml',
         'views/menus.xml'
     ],
     # only loaded in demonstration mode

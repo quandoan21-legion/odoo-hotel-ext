@@ -1,18 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data>
-        <record id="hotel_order_form_view_extend" model="ir.ui.view">
-            <field name="name">hotel.order.form.extend</field>
-            <field name="model">hotels.room.order</field>
-            <field name="inherit_id" ref="hotel.hotel_order_form_view"/>
-            <field name="arch" type="xml">
-                <xpath expr="//field[@name='room_price']" position="after">
+    <record id="hotel_order_form_view_extend" model="ir.ui.view">
+        <field name="name">hotel.order.form.extend</field>
+        <field name="model">hotels.room.order</field>
+        <field name="inherit_id" ref="hotel.hotel_order_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='room_price']" position="after">
+                <group>
                     <notebook>
                         <page string="Food, Drink and Stuff">
-                            <!-- One2many editable list for product_line_ids -->
                             <field name="order_service_product_ids">
                                 <list editable="bottom">
-                                    <field name="product_id" />
+                                    <field name="product_id"/>
                                     <field name="quantity"/>
                                     <field name="price_unit"/>
                                     <field name="subtotal"/>
@@ -20,8 +18,12 @@
                             </field>
                         </page>
                     </notebook>
-                </xpath>
-            </field>
-        </record>
-    </data>
+                </group>
+                <button name="%(hotel_ext.action_report_room_order)d"
+                        string="Print Report"
+                        type="action"
+                        class="oe_highlight"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>

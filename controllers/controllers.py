@@ -3,20 +3,20 @@
 
 
 # class Hotel-ext(http.Controller):
-#     @http.route('/hotel-ext/hotel-ext', auth='public')
+#     @http.route('/hotel_ext/hotel_ext', auth='public')
 #     def index(self, **kw):
 #         return "Hello, world"
 
-#     @http.route('/hotel-ext/hotel-ext/objects', auth='public')
+#     @http.route('/hotel_ext/hotel_ext/objects', auth='public')
 #     def list(self, **kw):
-#         return http.request.render('hotel-ext.listing', {
-#             'root': '/hotel-ext/hotel-ext',
-#             'objects': http.request.env['hotel-ext.hotel-ext'].search([]),
+#         return http.request.render('hotel_ext.listing', {
+#             'root': '/hotel_ext/hotel_ext',
+#             'objects': http.request.env['hotel_ext.hotel_ext'].search([]),
 #         })
 
-#     @http.route('/hotel-ext/hotel-ext/objects/<model("hotel-ext.hotel-ext"):obj>', auth='public')
+#     @http.route('/hotel_ext/hotel_ext/objects/<model("hotel_ext.hotel_ext"):obj>', auth='public')
 #     def object(self, obj, **kw):
-#         return http.request.render('hotel-ext.object', {
+#         return http.request.render('hotel_ext.object', {
 #             'object': obj
 #         })
 
