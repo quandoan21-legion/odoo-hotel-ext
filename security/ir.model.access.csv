@@ -1,2 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_hotels_room_order_history,hotels.room.order.history,model_hotels_room_order_history,,1,1,1,1
+access_hotels_room_order_service_product,room.order.service.product,model_room_order_service_product,,1,1,1,1

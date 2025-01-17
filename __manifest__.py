@@ -17,7 +17,7 @@ Long description of module's purpose
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'hotel','sale'],
+    'depends': ['base', 'hotel','sale', 'product'],
 
     # always loaded
     'data': [
@@ -30,6 +30,7 @@ Long description of module's purpose
         'views/form_views/view_hotel_room_form_extend.xml',
         'views/list_views/view_hotel_room_list_extend.xml',
         'views/hotel_sevice_products/list_views/hotel_service_product_list_view.xml',
+        'views/form_views/hotel_room_order_form_view_extend.xml',
         'views/menus.xml'
     ],
     # only loaded in demonstration mode
