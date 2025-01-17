@@ -8,29 +8,31 @@ The `hotel-ext` module provides additional capabilities for managing hotel rooms
 
 ## Folder Structure
 ```plain_text
-addons/
-└── hotel-ext/
-    ├── __init__.py
-    ├── __manifest__.py
-    ├── models/
-    │   ├── __init__.py
-    │   ├── RoomExtend.py
-    │   ├── RoomOrderHistory.py
-    │   ├── HotelExtend.py
-    │   ├── RoomOrderExtend.py
-    ├── views/
-    │   ├── views.xml
-    │   ├── templates.xml
-    │   ├── form_views/
-    │   │   ├── view_hotel_form_extend.xml
-    │   │   ├── view_hotel_room_form_extend.xml
-    │   ├── list_views/
-    │   │   ├── view_hotel_room_list_extend.xml
-    ├── security/
-    │   ├── ir.model.access.csv
-    ├── demo/
-    │   ├── demo.xml
-    ├── README.md
+odoo-18.0/
+├── addons/
+│   ├── hotel/
+│   │   ├── __init__.py
+│   │   ├── __manifest__.py
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── hotel_room_order.py
+│   │   ├── views/
+│   │   │   ├── hotel_order_form_view.xml
+│   │   │   ├── hotel_room_order_form_view.xml
+│   ├── hotel_ext/
+│   │   ├── __init__.py
+│   │   ├── __manifest__.py
+│   │   ├── models/
+│   │   │   ├── __init__.py
+│   │   │   ├── room_order_extend.py
+│   │   ├── views/
+│   │   │   ├── form_views/
+│   │   │   │   ├── hotel_room_order_form_view_extend.xml
+│   │   ├── report/
+│   │   │   ├── __init__.py
+│   │   │   ├── room_order_report.py
+│   │   │   ├── report_views.xml
+│   │   │   ├── report_templates.xml
 ```
 ## Features
 - Extended room order model to include order history whenever new record of the RoomOrder model is created.
