@@ -5,16 +5,18 @@
             <field name="model">hotels.room</field>
             <field name="inherit_id" ref="hotel.view_hotel_room_form"/>
             <field name="arch" type="xml">
-                <group>
-                    <!-- Add new fields after the rooms field -->
-                    <xpath expr="//field[@name='room_status']" position="after">
-                        <field name="room_width"/>
-                        <field name="room_length"/>
-                        <field name="room_size"/>
-                        <field name="room_capacity"/>
-                        <field name="room_allow_smoke"/>
-                    </xpath>
-                </group>
+                <!-- Use inside to add a page within the notebook -->
+                <xpath expr="//notebook[@name='room_note_book']" position="inside">
+                    <page string="Room Dimension">
+                        <group>
+                            <field name="room_width"/>
+                            <field name="room_length"/>
+                            <field name="room_size"/>
+                            <field name="room_capacity"/>
+                            <field name="room_allow_smoke"/>
+                        </group>
+                    </page>
+                </xpath>
             </field>
         </record>
     </data>

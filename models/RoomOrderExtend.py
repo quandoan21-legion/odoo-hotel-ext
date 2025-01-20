@@ -11,7 +11,7 @@ class RoomOrderExtend(models.Model):
         self.env['hotels.room.order.history'].create({
             'hotel_id': new_order.room_id.hotel_id.id,
             'room_id': new_order.room_id.id,
-            'customer_name': new_order.customer_name,
+            'customer_name': new_order.customer_name.name,
             'check_in_date': new_order.check_in_date,
             'check_out_date': new_order.check_out_date,
             'order_id': new_order.id,  # Link the order history to the order

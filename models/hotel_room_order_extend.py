@@ -19,6 +19,7 @@ class RoomOrderExtend(models.Model):
 
     @api.model
     def create(self, vals):
+        # Ensure the partner_id is passed correctly
         record = super(RoomOrderExtend, self).create(vals)
 
         # Prepare the order line for the room
@@ -28,9 +29,12 @@ class RoomOrderExtend(models.Model):
             'price_unit': record.room_id.room_price,  # Room price
         }
 
-        # Create the quotation
+        # Get partner_id from customer_name (the Many2one relation)
+        partner_id = record.customer_name.id  # This will get the partner associated with the room order
+
+        # Create the quotation with the correct partner_id
         quotation_vals = {
-            'partner_id': 47,  # Replace with the correct partner_id logic
+            'partner_id': partner_id,  # Use the partner_id from the customer_name field
             'order_line': [(0, 0, room_line)],
         }
 
@@ -50,16 +54,38 @@ class RoomOrderExtend(models.Model):
     def update_order_line(self):
         for record in self:
             if record.order_sale_quotation:
-                # Prepare service lines
-                service_lines = [
-                    (0, 0, {
+                # Get partner_id from customer_name (the Many2one relation)
+                partner_id = record.customer_name.id  # This will get the partner associated with the room order
+
+                # Extract existing order lines from the quotation
+                existing_lines = {line.product_id.id: line for line in record.order_sale_quotation.order_line}
+
+                # Prepare service lines for the room order
+                service_lines = []
+                for service_product in record.order_service_product_ids:
+                    service_line = {
                         'product_id': service_product.product_id.id,
                         'product_uom_qty': service_product.quantity,
                         'price_unit': service_product.price_unit,
-                    }) for service_product in record.order_service_product_ids
-                ]
+                    }
 
-                # Add new service lines
+                    # Check if the service product already exists in the quotation
+                    if service_product.product_id.id in existing_lines:
+                        # If it exists, we update the quantity and price
+                        existing_lines[service_product.product_id.id].write({
+                            'product_uom_qty': service_product.quantity,
+                            'price_unit': service_product.price_unit,
+                        })
+                    else:
+                        # If it doesn't exist, we create a new order line for this service
+                        service_lines.append((0, 0, service_line))
+
                 record.order_sale_quotation.write({
-                    'order_line': [(4, line.id) for line in record.order_sale_quotation.order_line] + service_lines,
+                    'partner_id': partner_id,  # Update the partner_id in the quotation
                 })
+
+                # Add new service lines (if any)
+                if service_lines:
+                    record.order_sale_quotation.write({
+                        'order_line': [(4, line.id) for line in record.order_sale_quotation.order_line] + service_lines
+                    })

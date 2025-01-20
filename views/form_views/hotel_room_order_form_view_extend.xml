@@ -4,7 +4,7 @@
         <field name="model">hotels.room.order</field>
         <field name="inherit_id" ref="hotel.hotel_order_form_view"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='room_price']" position="after">
+            <xpath expr="//group[@name='order_info']" position="after">
                 <group>
                     <notebook>
                         <page string="Food, Drink and Stuff">

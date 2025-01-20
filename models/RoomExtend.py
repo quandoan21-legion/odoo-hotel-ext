@@ -10,6 +10,7 @@ class ExtendRoom(models.Model):
     room_capacity = fields.Integer(string='Room Capacity', default=1)
     room_allow_smoke = fields.Boolean(string='Allow Smoke')
 
+
     @api.depends('room_width', 'room_length')
     def _compute_room_size(self):
         for record in self:
