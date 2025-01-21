@@ -1,11 +1,9 @@
-import logging
-
 from odoo import models, fields, api
 
 class RoomOrderExtend(models.Model):
     _inherit = 'hotels.room.order'
 
-    _logger = logging.getLogger(__name__)
+
     order_sale_quotation = fields.Many2one('sale.order', string="Room Booking Quotation")
     order_service_product_ids = fields.One2many('room.order.service.product', 'order_id', string="Service Products")
 
@@ -21,12 +19,19 @@ class RoomOrderExtend(models.Model):
     def create(self, vals):
         # Ensure the partner_id is passed correctly
         record = super(RoomOrderExtend, self).create(vals)
-
+        day_different = super(RoomOrderExtend, self).calculate_day_different(record.check_in_date,
+                                                                             record.check_out_date)
+        weekend_count = super(RoomOrderExtend, self).count_weekend_days(record.check_in_date, record.check_out_date)
+        weekday_count = day_different - weekend_count
+        total_room_order = super(RoomOrderExtend, self).calculate_total_room_price(weekday_count, weekend_count,
+                                                                                   record.room_id.room_price,
+                                                                                   record.room_id.weekend_rate)
+        room_price_perday = total_room_order / day_different
         # Prepare the order line for the room
         room_line = {
             'product_id': record.room_id.product_id.product_variant_ids[0].id,
-            'product_uom_qty': (record.check_out_date - record.check_in_date).days,  # Room quantity
-            'price_unit': record.room_id.room_price,  # Room price
+            'product_uom_qty': day_different,
+            'price_unit': room_price_perday,  # Room price
         }
 
         # Get partner_id from customer_name (the Many2one relation)
